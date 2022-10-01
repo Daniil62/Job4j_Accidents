@@ -24,6 +24,7 @@
 </head>
 <body>
 <div class="container">
+    <!-- Navigation -->
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand">Job4j Accidents</a>
@@ -65,8 +66,23 @@
         </nav>
     </div>
     <br>
-    <div>
-        <div th:text="${user}"></div>
+    <div class="card p-3">
+        <table>
+            <thead>
+            <tr>
+                <th class="col-3">Заявка</th>
+                <th class="col-3">Текст</th>
+                <th class="col-3">Адрес</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="accident: ${accidents}">
+                <td th:text="${accident.name}"></td>
+                <td th:text="${accident.text}"></td>
+                <td th:text="${accident.address}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
