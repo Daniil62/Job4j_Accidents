@@ -46,7 +46,7 @@
                     </a>
                     <a class="nav-item nav-link"
                        th:if="${user != 'Гость'}"
-                       th:href="#" target="_blank">
+                       th:href="@{/createAccidentForm}" target="_blank">
                         Разместить заявку
                     </a>
                     <a class="nav-item nav-link"
@@ -80,6 +80,10 @@
                 <td th:text="${accident.name}"></td>
                 <td th:text="${accident.text}"></td>
                 <td th:text="${accident.address}"></td>
+                <td>
+                    <a th:href="@{|/updateAccidentForm/${accident.id}|}">
+                        <i class="fa fa-edit"></i></a>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -27,4 +27,8 @@ public class AccidentService {
     public List<Accident> getAccidents() {
         return store.getAccidents().stream().toList();
     }
+
+    public boolean update(Accident accident) {
+        return store.update(accident);
+    }
 }

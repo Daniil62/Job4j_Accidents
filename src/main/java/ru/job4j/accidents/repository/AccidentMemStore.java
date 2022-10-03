@@ -5,7 +5,6 @@ import ru.job4j.accidents.model.Accident;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Repository
 public class AccidentMemStore {
@@ -32,5 +31,9 @@ public class AccidentMemStore {
 
     public Collection<Accident> getAccidents() {
         return accidents.values();
+    }
+
+    public boolean update(Accident accident) {
+        return accidents.replace(accident.getId(), accident) != null;
     }
 }
