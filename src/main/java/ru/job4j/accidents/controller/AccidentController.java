@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.service.AccidentService;
+import ru.job4j.accidents.service.AccidentTypeService;
 
 import java.util.NoSuchElementException;
 
@@ -12,9 +13,12 @@ import java.util.NoSuchElementException;
 public class AccidentController {
 
     private final AccidentService service;
+    private final AccidentTypeService typeService;
 
-    public AccidentController(AccidentService service) {
+    public AccidentController(AccidentService service,
+                              AccidentTypeService typeService) {
         this.service = service;
+        this.typeService = typeService;
     }
 
     @GetMapping("/index")
@@ -27,11 +31,14 @@ public class AccidentController {
     @GetMapping("/createAccidentForm")
     public String createAccident(Model model) {
         model.addAttribute(new Accident());
+        model.addAttribute("types", typeService.getTypes());
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
+        accident.setType(typeService.get(accident.getType().getId())
+                .orElseThrow(NoSuchElementException::new));
         service.put(accident);
         return "redirect:/index";
     }
@@ -41,11 +48,14 @@ public class AccidentController {
                                  @RequestParam("id") int id) {
         model.addAttribute("accident",
                 service.get(id).orElseThrow(NoSuchElementException::new));
+        model.addAttribute("types", typeService.getTypes());
         return "updateAccident";
     }
 
     @PostMapping("/updateAccident")
     public String update(@ModelAttribute Accident accident) {
+        accident.setType(typeService.get(accident.getType().getId())
+                .orElseThrow(NoSuchElementException::new));
         service.update(accident);
         return "redirect:/index";
     }

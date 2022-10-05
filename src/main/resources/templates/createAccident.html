@@ -52,6 +52,7 @@
       <div class="card-header">
         Новый инцидент
       </div>
+      <br>
       <div class="card-body">
         <form th:action="@{/saveAccident}" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="id" value="0"/>
@@ -63,6 +64,7 @@
                    id="name"
                    th:required="true">
           </div>
+          <br>
           <div class="form-group">
             <label for="text">Текст</label>
             <input type="text"
@@ -71,6 +73,7 @@
                    id="text"
                    th:required="true">
           </div>
+          <br>
           <div class="form-group">
             <label for="address">Адрес</label>
             <input type="text"
@@ -79,6 +82,19 @@
                    id="address"
                    th:required="true">
           </div>
+          <br>
+          <div class="form-group">
+            <label for="type.id">Тип</label>
+            <select class="form-control" id="type.id"  name="type.id">
+              <option value="0"></option>
+              <option th:each="type: ${types}"
+                      th:text="${type.name}"
+                      th:value="${type.id}"
+                      th:required="true">
+              </option>
+            </select>
+          </div>
+          <br>
           <button type="submit" class="btn btn-primary mt-3">
             Сохранить
           </button>

@@ -2,6 +2,7 @@ package ru.job4j.accidents.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,9 +14,12 @@ public class AccidentMemStore {
     private final AtomicInteger size = new AtomicInteger(accidents.size());
 
     public AccidentMemStore() {
-        accidents.put(1, new Accident(1, "A", "A text", "A address"));
-        accidents.put(2, new Accident(2, "B", "B text", "B address"));
-        accidents.put(3, new Accident(3, "C", "C text", "C address"));
+        accidents.put(1, new Accident(1, "A", "A text",
+                "A address", new AccidentType()));
+        accidents.put(2, new Accident(2, "B", "B text",
+                "B address", new AccidentType()));
+        accidents.put(3, new Accident(3, "C", "C text",
+                "C address", new AccidentType()));
     }
 
     public Optional<Accident> get(int id) {

@@ -5,7 +5,6 @@ import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.AccidentMemStore;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
