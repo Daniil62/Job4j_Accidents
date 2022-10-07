@@ -1,6 +1,6 @@
 package ru.job4j.accidents.model;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Accident {
 
@@ -9,6 +9,7 @@ public class Accident {
     private String text;
     private String address;
     private AccidentType type;
+    private final Set<Rule> rules = new HashSet<>();
 
     public Accident() {
     }
@@ -59,6 +60,15 @@ public class Accident {
 
     public void setType(AccidentType type) {
         this.type = type;
+    }
+
+    public Set<Rule> getRules() {
+        return Set.copyOf(rules);
+    }
+
+    public void setRules(Collection<Rule> collection) {
+        rules.clear();
+        rules.addAll(collection);
     }
 
     @Override
