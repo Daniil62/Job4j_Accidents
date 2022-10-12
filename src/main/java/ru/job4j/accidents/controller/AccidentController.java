@@ -4,9 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.service.AccidentDBService;
-import ru.job4j.accidents.service.AccidentTypeService;
-import ru.job4j.accidents.service.RuleService;
+import ru.job4j.accidents.service.*;
 
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
@@ -14,12 +12,12 @@ import java.util.function.Consumer;
 @Controller
 public class AccidentController {
 
-    private final AccidentDBService service;
-    private final AccidentTypeService typeService;
-    private final RuleService ruleService;
+    private final AccidentHibernateService service;
+    private final AccidentTypeHibernateService typeService;
+    private final RuleHibernateService ruleService;
 
-    public AccidentController(AccidentDBService service,
-                              AccidentTypeService typeService, RuleService ruleService) {
+    public AccidentController(AccidentHibernateService service,
+                              AccidentTypeHibernateService typeService, RuleHibernateService ruleService) {
         this.service = service;
         this.typeService = typeService;
         this.ruleService = ruleService;
@@ -42,7 +40,7 @@ public class AccidentController {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
-        takeAction(accident, act -> service.put(accident));
+        takeAction(accident, act -> service.create(accident));
         return "redirect:/index";
     }
 
