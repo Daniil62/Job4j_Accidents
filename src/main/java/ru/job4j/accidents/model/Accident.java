@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "accidents")
 public class Accident {
 
     @Id
@@ -13,10 +12,13 @@ public class Accident {
     private String name;
     private String text;
     private String address;
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "type_id")
     private AccidentType type;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "accident_rule",
+            joinColumns = @JoinColumn(name = "accident_id", nullable = false, referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "rule_id", nullable = false, referencedColumnName = "id"))
     private final Set<Rule> rules = new HashSet<>();
 
     public Accident() {

@@ -35,13 +35,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link"
-                       th:href="#">
+                    <a class="nav-item nav-link">
                         Главная
                     </a>
                     <a class="nav-item nav-link"
                        th:if="${user != 'Гость'}"
-                       th:href="#" target="_blank">
+                       target="_blank">
                         Мои заявки
                     </a>
                     <a class="nav-item nav-link"
@@ -50,14 +49,12 @@
                         Разместить заявку
                     </a>
                     <a class="nav-item nav-link"
-                       th:if="${user != 'Гость'}"
-                       th:href="#">
+                       th:if="${user == 'Гость'}">
                         <span th:text="${user}"></span>
                         <span> | Войти</span>
                     </a>
                     <a class="nav-item nav-link"
-                       th:if="${user != 'Гость'}"
-                       th:href="#">
+                       th:if="${user != 'Гость'}">
                         <span th:text="${user}"></span>
                         <span> | Выйти</span>
                     </a>
@@ -81,7 +78,7 @@
                 <td th:text="${accident.text}"></td>
                 <td th:text="${accident.address}"></td>
                 <td>
-                    <a th:href="@{|/updateAccidentForm/id=${accident.id}|}">
+                    <a th:href="@{|/updateAccidentForm?id=${accident.id}|}">
                         <i class="fa fa-edit"></i></a>
                 </td>
             </tr>

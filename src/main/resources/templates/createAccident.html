@@ -24,23 +24,21 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link"
-           th:href="#">
+        <a class="nav-item nav-link">
           Главная
         </a>
         <a class="nav-item nav-link"
            th:if="${user != 'Гость'}"
-           th:href="#" target="_blank">
+           target="_blank">
           Мои заявки
         </a>
         <a class="nav-item nav-link"
            th:if="${user != 'Гость'}"
-           th:href="#" target="_blank">
+           target="_blank">
           Разместить заявку
         </a>
         <a class="nav-item nav-link"
-           th:if="${user != 'Гость'}"
-           th:href="#">
+           th:if="${user != 'Гость'}">
           <span th:text="${user}"></span>
           <span> | Выйти</span>
         </a>

@@ -1,14 +1,14 @@
 CREATE TABLE IF NOT EXISTS accident_type (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS rule (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE accident (
+CREATE TABLE IF NOT EXISTS accident (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   text VARCHAR(2000) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE accident (
   type_id INT REFERENCES accident_type(id)
 );
 
-CREATE TABLE accident_rule (
+CREATE TABLE IF NOT EXISTS accident_rule (
   id SERIAL PRIMARY KEY,
   rule_id INT REFERENCES rule(id),
   accident_id INT REFERENCES accident(id)

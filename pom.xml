@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.5.0</version>
+            <version>42.2.9</version>
         </dependency>
 
         <dependency>
@@ -179,7 +179,7 @@
             <properties>
                 <db.url>jdbc:postgresql://127.0.0.1:5432/accidents</db.url>
                 <db.username>postgres</db.username>
-                <db.password>password</db.password>
+                <db.password>postgresPassword</db.password>
                 <db.driver>org.postgresql.Driver</db.driver>
             </properties>
         </profile>

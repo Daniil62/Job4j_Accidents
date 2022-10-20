@@ -25,12 +25,12 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link"
-                   th:href="#">
+                   th:href="@{/index}">
                     Главная
                 </a>
                 <a class="nav-item nav-link"
                    th:if="${user != 'Гость'}"
-                   th:href="#" target="_blank">
+                   target="_blank">
                     Мои заявки
                 </a>
                 <a class="nav-item nav-link"
@@ -39,8 +39,7 @@
                     Разместить заявку
                 </a>
                 <a class="nav-item nav-link"
-                   th:if="${user != 'Гость'}"
-                   th:href="#">
+                   th:if="${user != 'Гость'}">
                     <span th:text="${user}"></span>
                     <span> | Выйти</span>
                 </a>
@@ -102,7 +101,7 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <label for="type.id" name="rIds">Статья</label>
+                        <label for="rIds" name="rIds">Статья</label>
                         <select th:field="*{rules}"
                                 class="form-control"
                                 id="rIds" name="rIds" multiple>

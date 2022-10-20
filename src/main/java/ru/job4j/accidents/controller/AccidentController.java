@@ -12,12 +12,13 @@ import java.util.function.Consumer;
 @Controller
 public class AccidentController {
 
-    private final AccidentHibernateService service;
-    private final AccidentTypeHibernateService typeService;
-    private final RuleHibernateService ruleService;
+    private final AccidentDataService service;
+    private final AccidentTypeDataService typeService;
+    private final RuleDataService ruleService;
 
-    public AccidentController(AccidentHibernateService service,
-                              AccidentTypeHibernateService typeService, RuleHibernateService ruleService) {
+    public AccidentController(AccidentDataService service,
+                              AccidentTypeDataService typeService,
+                              RuleDataService ruleService) {
         this.service = service;
         this.typeService = typeService;
         this.ruleService = ruleService;
@@ -33,29 +34,33 @@ public class AccidentController {
     @GetMapping("/createAccidentForm")
     public String createAccident(Model model) {
         model.addAttribute(new Accident());
+        model.addAttribute("user", "Daniil");
         model.addAttribute("types", typeService.getTypes());
         model.addAttribute("rules", ruleService.getRules());
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident) {
+    public String save(@ModelAttribute Accident accident, Model model) {
         takeAction(accident, act -> service.create(accident));
+        model.addAttribute("user", "Daniil");
         return "redirect:/index";
     }
 
     @GetMapping("/updateAccidentForm")
     public String updateAccident(Model model,
                                  @RequestParam("id") int id) {
+        model.addAttribute("user", "Daniil");
         model.addAttribute("accident",
                 service.get(id).orElseThrow(NoSuchElementException::new));
         model.addAttribute("types", typeService.getTypes());
         model.addAttribute("rules", ruleService.getRules());
-        return "updateAccident";
+        return "editAccident";
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident) {
+    public String update(@ModelAttribute Accident accident, Model model) {
+        model.addAttribute("user", "Daniil");
         takeAction(accident, act -> service.update(accident));
         return "redirect:/index";
     }
