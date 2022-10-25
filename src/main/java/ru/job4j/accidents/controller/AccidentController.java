@@ -1,5 +1,6 @@
 package ru.job4j.accidents.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,8 @@ public class AccidentController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        model.addAttribute("user", "Daniil");
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("accidents", service.getAccidents());
         return "index";
     }
@@ -34,33 +36,31 @@ public class AccidentController {
     @GetMapping("/createAccidentForm")
     public String createAccident(Model model) {
         model.addAttribute(new Accident());
-        model.addAttribute("user", "Daniil");
-        model.addAttribute("types", typeService.getTypes());
-        model.addAttribute("rules", ruleService.getRules());
+        fillModel(model);
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, Model model) {
         takeAction(accident, act -> service.create(accident));
-        model.addAttribute("user", "Daniil");
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "redirect:/index";
     }
 
     @GetMapping("/updateAccidentForm")
     public String updateAccident(Model model,
                                  @RequestParam("id") int id) {
-        model.addAttribute("user", "Daniil");
         model.addAttribute("accident",
                 service.get(id).orElseThrow(NoSuchElementException::new));
-        model.addAttribute("types", typeService.getTypes());
-        model.addAttribute("rules", ruleService.getRules());
+        fillModel(model);
         return "editAccident";
     }
 
     @PostMapping("/updateAccident")
     public String update(@ModelAttribute Accident accident, Model model) {
-        model.addAttribute("user", "Daniil");
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         takeAction(accident, act -> service.update(accident));
         return "redirect:/index";
     }
@@ -70,5 +70,12 @@ public class AccidentController {
                 .orElseThrow(NoSuchElementException::new));
         ruleService.setRules(accident);
         action.accept(accident);
+    }
+
+    private void fillModel(Model model) {
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        model.addAttribute("types", typeService.getTypes());
+        model.addAttribute("rules", ruleService.getRules());
     }
 }
