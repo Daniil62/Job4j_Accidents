@@ -1,5 +1,7 @@
 package ru.job4j.accidents.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +28,9 @@ public class AccidentController {
     }
 
     @GetMapping("/index")
-    public String index(Model model) {
-        model.addAttribute("user",
-                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public String index(Model model, @CurrentSecurityContext(expression = "authentication")
+            Authentication authentication) {
+        model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("accidents", service.getAccidents());
         return "index";
     }

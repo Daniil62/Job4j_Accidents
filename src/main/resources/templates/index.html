@@ -35,26 +35,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link">
-                        Главная
-                    </a>
                     <a class="nav-item nav-link"
-                       th:if="${user.username != 'Гость'}"
                        target="_blank">
                         Мои заявки
                     </a>
                     <a class="nav-item nav-link"
-                       th:if="${user.username != 'Гость'}"
                        th:href="@{/createAccidentForm}" target="_blank">
                         Разместить заявку
                     </a>
                     <a class="nav-item nav-link"
-                       th:if="${user.username == 'Гость'}">
-                        <span th:text="${user.name}"></span>
-                        <span> | Войти</span>
-                    </a>
-                    <a class="nav-item nav-link"
-                       th:if="${user.username != 'Гость'}"
                        th:href="@{/logout}">
                         <span th:text="${user.username}"></span>
                         <span> | Выйти</span>

@@ -20,19 +20,51 @@
 
 <body>
 <div class="container">
-<div th:if="${errorMessage != null}"
-     th:text="${errorMessage}"
-     style="color:red; font-weight: bold; margin: 30px 0px;">
-</div>
-    <form name='login' th:action="@{/login}" method='POST'>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">Job4j Accidents</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link"
+                       th:href="@{/reg}">
+                        Регистрация
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <br>
+    <div>
+        <div th:if="${!isLogout}"><b><h3>Вход</h3></b></div>
+        <div th:if="${isLogout}">
+            <b><h3>
+            <a th:href="@{/index}">
+                Вход
+            </a>
+        </h3></b>
+        </div>
+    </div>
+    <br>
+    <div th:if="${errorMessage != null}"
+         th:text="${errorMessage}"
+         style="color:red; font-weight: bold; margin: 30px 0px;">
+    </div>
+    <form th:if="${!isLogout}" name='login' th:action="@{/login}" method='POST'>
         <table>
             <tr>
                 <td>UserName:</td>
-                <td><input type='text' name='username'></td>
+                <td><input type='text' name='username'
+                           th:required="true"/></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type='password' name='password'/></td>
+                <td><input type='password' name='password'
+                           th:required="true"/></td>
             </tr>
             <tr>
                 <td colspan='2'><input name="submit" type="submit" value="submit" /></td>
